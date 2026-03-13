@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <title>NYG Merch Shop</title>
+</head>
+
+<body>
+    
+    <div>
+        <img src="tshirt.avif" alt="NY Giants T-Shirt" width="100px" height="150px"> 
+        <img src="jersey.jpg" alt="NY Giants Jersey" width="100px" height="150px"> 
+        <img src="mug.jpg" alt="NY Giants Mug" width="100px" height="150px"> 
+    </div>
+
+    <script>
+
+        //welcome message
+        alert("Welcome to the NY Giants Merch Store!");
+
+        //ask for info
+        var name = prompt("Please enter your name:");
+        var item = prompt("What item would you like to order?");
+        var quantity = prompt("How many " + item + "s would you like to order? (Please enter a number between 1 and 99)");
+
+        //greet with time of day
+        var now = new Date();
+        var hour = now.getHours();
+        var greeting = "";
+        
+        
+        //condtions for greeting
+        if (hour < 12) {
+            greeting = "Good morning";
+        } else if (hour < 18) {
+            greeting = "Good afternoon";
+        } else {
+            greeting = "Good evening";
+        }
+
+        //find arrival date
+        var arrivalDate = new Date();
+        arrivalDate.setDate(now.getDate() + 7);
+
+        
+        document.writeln("<h1>" + greeting + " " + name + ", thank you for ordering!</h1>");
+    </script>
+    <br>
+    <hr>
+    <script>
+        document.writeln("<h3>Order Details: </h3>");
+        document.writeln("<p>Item: " + item + "</p>");
+        document.writeln("<p>Quantity: " + quantity + "</p>");
+        
+        //format date
+        document.writeln("<p>Your order will arrive on: " + arrivalDate.toDateString() + "</p>");
+        //.toDateString() formats date in a more readable way
+        // resource: https://www.w3schools.com/jsref/jsref_todatestring.asp
+    </script>
+
+    <br>
+    <hr>
+
+</body>
+
+</html>

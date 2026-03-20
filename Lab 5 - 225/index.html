@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>NYG Hoodie Registration</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5" style="max-width: 600px;">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white text-center">
+                <h2>Exclusive NYG Hoodie Drop</h2>
+
+                <p class="mb-0">Register to secure your spot in line</p>
+            </div>
+
+            <div class="card-body">
+
+                <form id="user-data">
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="fname" placeholder="First Name">
+                        <label for="fname">First Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="lname" placeholder="Last Name">
+                        <label for="lname">Last Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                        <label for="email">Email address</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" id="password" placeholder="Password">
+                        <label for="password">Password (Must include ! or ?)</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="DOB" placeholder="Date of Birth">
+                        <label for="DOB">Date of Birth</label>
+                    </div>
+                    <button type="button" class="btn btn-primary w-100 py-2" onclick="registerUser()">Register for Drop</button>
+                </form>
+
+            </div>
+        </div>
+        <div id="output" class="mt-4"></div>
+
+    </div>
+
+    <script>
+        function registerUser() 
+        {
+            // grab inputs
+            let fName = document.getElementById('fname').value;
+            let lName = document.getElementById('lname').value;
+
+            let email = document.getElementById('email').value;
+            let pass = document.getElementById('password').value;
+            let dob = document.getElementById('DOB').value;
+
+            let outputDiv = document.getElementById('output');
+
+            // check for blank
+            if (fName === "" || lName === "" || email === "" || pass === "" || dob === "") {
+                outputDiv.innerHTML = "<strong>Error:</strong> Please fill out all fields!";
+                outputDiv.style.color = "red";
+                return; // stop here if missing info
+            }
+
+            // check for special char
+            let hasSpecial = false;
+
+            for (let i = 0; i < pass.length; i++) {
+
+                if (pass.charAt(i) === '!' || pass.charAt(i) === '?') {
+                    hasSpecial = true;
+                    break;
+                }
+            }
+
+            if (!hasSpecial) {
+
+                outputDiv.innerHTML = "<strong>Error:</strong> Password needs a '!' or '?'.";
+                outputDiv.style.color = "red";
+                return;
+            }
+
+            // user obj
+            const userObj = {
+                firstName: fName,
+                lastName: lName,
+                email: email,
+                password: pass,
+                dateOfBirth: dob
+            };
+
+            // swap password characters to stars
+            let stars = "";
+            for (let i = 0; i < userObj.password.length; i++) {
+                stars += "*";
+            }
+
+            userObj.password = stars;
+
+            //show user data
+            outputDiv.style.color = "black";  
+            
+            outputDiv.innerHTML = "<div class='alert alert-success'>" +
+                "<h4>Registration Successful!</h4>" +
+                "<p>You're on the list for the NYG hoodie. Here is your info:</p>" +
+                "<ul>" +
+                    "<li>Name: " + userObj.firstName + " " + userObj.lastName + "</li>" +
+                    "<li>Email: " + userObj.email + "</li>" +
+                    "<li>Password: " + userObj.password + "</li>" +
+                    "<li>DOB: " + userObj.dateOfBirth + "</li>" +
+                "</ul>" +
+                "</div>";
+        }
+    </script>
+</body>
+
+</html>

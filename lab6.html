@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Cat</title>
+
+</head>
+<body>
+    
+    <h1>Cat Facts</h1>
+    <button onclick="getCatData()">Get Cat Facts</button>
+    <br>
+    <br>
+
+    <img id="catImage" src="https://via.placeholder.com/300?text=Placeholder+Image" alt="Cat Picture" width="300">
+    <br>
+    <br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Fact ID</th>
+                <th>Fact</th>
+            </tr>
+        </thead>
+        <tbody id="catTableBody">
+        </tbody>
+    </table>
+
+    <script>
+        async function getCatData() {
+            // consume rest api using get
+            const url = 'https://brianobruno.github.io/cats.json';
+            const options = {
+                method: 'GET'
+            };
+
+            const response = await fetch(url, options);
+            const result = await response.text();
+            const myObj = JSON.parse(result);
+
+            //sort the facts array by factId so 1 is first and 5 is last
+            myObj.facts.sort(function(a, b) {
+                return a.factId - b.factId;
+            });
+
+            // update the picture that was already on the page
+            document.getElementById('catImage').src = myObj.catPhoto;
+
+            //grab the table body and clear old data
+            const tableBody = document.getElementById('catTableBody');
+            tableBody.innerHTML = '';
+
+            // put data into the table
+            myObj.facts.forEach(function(item) {
+                let newRow = "<tr>" +
+                             "<td>" + item.factId + "</td>" +
+                             "<td>" + item.text + "</td>" + 
+                             "</tr>";
+                tableBody.innerHTML += newRow;
+            });
+        }
+    </script>
+
+</body>
+</html>
